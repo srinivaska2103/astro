@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+    <title>Sunrise Astrology | AI Birth Chart Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigoDark: '#1E1B4B',
+                        sunOrange: '#F97316',
+                        rosePink: '#FB7185',
+                        warmYellow: '#FDE68A',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            font-weight: 400;
+            transition: all 0.3s ease; 
+        }
+        
+        h1, h2, h3, .font-heading { 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 600;
+        }
+
+        .bg-sunrise {
+            background: linear-gradient(135deg, #F97316 0%, #FB7185 100%);
+        }
+
+        .glass-warm {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.2);
+        }
+
+        .dark .glass-warm {
+            background: rgba(30, 27, 75, 0.6);
+        }
+
+        .sun-glow {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-indigoDark text-slate-800 dark:text-white overflow-x-hidden" 
+      x-data="astroApp()" 
+      x-init="init()"
+      :dir="direction">
+
+    <nav class="fixed w-full z-50 top-0 left-0 bg-white dark:bg-indigoDark border-b border-gray-200 dark:border-white/10 transition-colors duration-300" x-data="{ open: false }">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 xl:px-8">
+    <div class="flex justify-between h-20 items-center">
+        <a href="index.html">
+<div class="flex-shrink-0 flex items-center gap-2 xl:gap-3">
+            <div class="w-9 h-9 xl:w-10 xl:h-10 bg-gradient-to-r from-sunOrange to-rosePink rounded-lg flex items-center justify-center shadow-md">
+                <i class="fas fa-sun text-white text-sm xl:text-base"></i>
+            </div>
+            <span class="text-lg xl:text-xl font-bold dark:text-white uppercase tracking-tight">
+                Sunrise<span class="text-sunOrange">Astro</span>
+            </span>
+        </div>
+        </a>
+        
+
+        <div class="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300" 
+     x-data="{ currentPath: window.location.pathname.split('/').pop() || 'index.html' }">
+    
+    <a href="index.html" 
+       :class="currentPath === 'index.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Home</a>
+    
+    <a href="home2.html" 
+       :class="currentPath === 'home2.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Home 2</a>
+    
+    <a href="aboutus.html" 
+       :class="currentPath === 'aboutus.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">About</a>
+    
+    <a href="service.html" 
+       :class="currentPath === 'service.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Service</a>
+    
+    <a href="pricing.html" 
+       :class="currentPath === 'pricing.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Pricing</a>
+    
+    <a href="contact.html" 
+       :class="currentPath === 'contact.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Contact</a>
+</div>
+
+        <div class="hidden lg:flex items-center gap-3 xl:gap-5">
+            <button @click="toggleDir()" 
+                    class="text-[10px] font-black px-2 py-1 border rounded-md border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white transition uppercase"
+                    x-text="direction === 'ltr' ? 'RTL' : 'LTR'">
+            </button>
+
+            <button @click="toggleTheme()" class="text-gray-500 dark:text-warmYellow text-lg transition hover:scale-110">
+                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </button>
+
+<a href="login.html" 
+   class="text-xs xl:text-sm font-bold px-5 xl:px-6 py-2 xl:py-2.5 
+          border-2 border-sunOrange dark:border-warmYellow 
+          text-sunOrange dark:text-warmYellow 
+          rounded-full transition-all duration-300 
+          hover:bg-sunOrange hover:text-white dark:hover:bg-warmYellow dark:hover:text-indigoDark
+          active:scale-95 whitespace-nowrap">
+    Login
+</a>            
+            <a href="booknow.html" class="bg-gradient-to-r from-sunOrange to-rosePink text-white px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-xs xl:text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap">
+                Book Now
+            </a>
+        </div>
+
+        <div class="lg:hidden flex items-center gap-4">
+            <button @click="toggleTheme()" class="text-gray-600 dark:text-warmYellow">
+                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </button>
+            <button @click="open = !open" class="text-gray-900 dark:text-white focus:outline-none">
+                <i class="fas" :class="open ? 'fa-times text-2xl' : 'fa-bars text-xl'"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+    <div x-show="open" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="lg:hidden bg-white dark:bg-indigoDark border-t dark:border-white/5 px-6 py-8 shadow-2xl">
+      <div class="flex flex-col gap-2" 
+     x-data="{ currentPath: window.location.pathname.split('/').pop() || 'index.html' }">
+    
+    <a href="index.html" @click="open = false" 
+       :class="currentPath === 'index.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Home</a>
+    
+    <a href="home2.html" @click="open = false" 
+       :class="currentPath === 'home2.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Home 2</a>
+
+    <a href="aboutus.html" @click="open = false" 
+       :class="currentPath === 'aboutus.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">About Us</a>
+
+    <a href="service.html" @click="open = false" 
+       :class="currentPath === 'service.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Service</a>
+
+    <a href="pricing.html" @click="open = false" 
+       :class="currentPath === 'pricing.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Pricing</a>
+
+    <a href="contact.html" @click="open = false" 
+       :class="currentPath === 'contact.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Contact</a>
+
+    <div class="grid grid-cols-2 gap-3 mt-4">
+        <a href="login.html" class="flex items-center justify-center py-3 border dark:border-white/10 rounded-xl dark:text-white font-bold transition-transform active:scale-95">Login</a>
+        <a href="booknow.html" class="flex items-center justify-center py-3 bg-sunOrange text-white rounded-xl font-bold transition-transform active:scale-95">Book Now</a>
+    </div>
+
+    <button @click="toggleDir()" class="w-full py-3 bg-gray-100 dark:bg-white/5 text-xs font-black rounded-xl mt-2 dark:text-white uppercase tracking-widest border border-transparent active:border-sunOrange">
+        Switch to <span x-text="direction === 'ltr' ? 'RTL Layout' : 'LTR Layout'"></span>
+    </button>
+</div>
+    </div>
+</nav>
+
+
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-indigoDark transition-colors">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="assets/contacthero1" 
+             alt="Cosmic Starry Background" 
+             class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-indigoDark/80 via-indigoDark/60 to-indigoDark"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 text-center lg:text-left space-y-8">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 shadow-sm backdrop-blur-md">
+                    <span class="flex h-2 w-2">
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-sunOrange"></span>
+                    </span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-white">v2.0 Platform Live</span>
+                </div>
+
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter text-white">
+                    Unlock Your Destiny with <br class="hidden sm:block">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">
+                        AI-Powered Astrology
+                    </span>
+                </h1>
+
+                <p class="text-slate-300 text-sm md:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    The world's first automated Tamil astrology platform. Generate precision natal charts, compatibility reports, and daily insights in seconds.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="regesiter.html" class="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-sunOrange to-rosePink text-white rounded-full font-black text-sm uppercase tracking-widest shadow-xl shadow-sunOrange/20 hover:shadow-sunOrange/40 transition-all active:scale-95 text-center">
+                        Start Free Trial
+                    </a>
+                    <a href="comingsoon.html" class="w-full sm:w-auto px-10 py-5 bg-white/10 border-2 border-white/10 text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-white/20 transition-all text-center backdrop-blur-md">
+                        Watch Demo
+                    </a>
+                </div>
+
+                <div class="pt-8 flex items-center justify-center lg:justify-start gap-8 border-t border-white/10">
+                    <div>
+                        <p class="text-2xl font-black text-white">10K+</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Users</p>
+                    </div>
+                    <div class="w-px h-8 bg-white/10"></div>
+                    <div>
+                        <p class="text-2xl font-black text-white">99.9%</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Accuracy</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative hidden md:block">
+                
+                <div class="relative z-10 p-8 rounded-[3rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl group">
+                    <div class="aspect-square rounded-2xl bg-indigoDark/80 overflow-hidden relative border border-white/5">
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#F97316_1px,transparent_1px)] [background-size:20px_20px]"></div>
+                        
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-dharmachakra text-8xl text-sunOrange opacity-50"></i>
+                        </div>
+
+                        <div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                                <p class="text-[10px] font-bold text-white uppercase tracking-widest">AI Interpretation Ready</p>
+                            </div>
+                            <div class="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-sunOrange to-rosePink w-3/4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-rosePink rounded-full flex items-center justify-center text-white text-3xl shadow-2xl shadow-rosePink/20">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-sunOrange rounded-full flex items-center justify-center text-white text-xl shadow-2xl shadow-sunOrange/20">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="pb-24 bg-white dark:bg-[#0F1122] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+            
+            <div class="lg:col-span-5 space-y-6">
+                <div class="p-8 rounded-[2rem] bg-slate-50 dark:bg-indigoDark border border-slate-200 dark:border-white/5 transition-all hover:shadow-xl group">
+                    <div class="w-12 h-12 rounded-2xl bg-sunOrange/10 text-sunOrange flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="text-lg font-bold dark:text-white mb-2">Email Us</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Our support team typically responds within 4 cosmic hours.</p>
+                    <a href="mailto:support@sunriseastro.com" class="text-sunOrange font-black text-sm hover:underline">support@sunriseastro.com</a>
+                </div>
+
+                <div class="p-8 rounded-[2rem] bg-slate-50 dark:bg-indigoDark border border-slate-200 dark:border-white/5 transition-all hover:shadow-xl group">
+                    <div class="w-12 h-12 rounded-2xl bg-rosePink/10 text-rosePink flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-location-dot"></i>
+                    </div>
+                    <h3 class="text-lg font-bold dark:text-white mb-2">Visit Madurai Hub</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Vexa Tech HQ, Tamil Nadu, India.</p>
+                    <span class="text-rosePink font-black text-sm uppercase tracking-widest">Open: 9AM - 6PM IST</span>
+                </div>
+
+                <div class="flex items-center gap-4 pt-4">
+                    <a href="#" class="w-12 h-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-sunOrange transition-all"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-sunOrange transition-all"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="w-12 h-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-sunOrange transition-all"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="bg-white dark:bg-indigoDark rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-slate-200 dark:border-white/5">
+                    <form class="space-y-6" @submit.prevent="alert('Message Sent!')">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2 mb-2 block">Full Name</label>
+                                <input type="text" placeholder="Srinivas K A" required class="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-6 py-4 rounded-2xl focus:outline-none focus:border-sunOrange dark:text-white transition-all">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2 mb-2 block">Email Address</label>
+                                <input type="email" placeholder="name@company.com" required class="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-6 py-4 rounded-2xl focus:outline-none focus:border-sunOrange dark:text-white transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2 mb-2 block">Subject</label>
+                            <select class="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-6 py-4 rounded-2xl focus:outline-none focus:border-sunOrange dark:text-white transition-all appearance-none">
+                                <option>General Inquiry</option>
+                                <option>Technical Support</option>
+                                <option>API Access</option>
+                                <option>Billing Issue</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2 mb-2 block">Message</label>
+                            <textarea rows="5" placeholder="How can our cosmic team help you?" class="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 px-6 py-4 rounded-2xl focus:outline-none focus:border-sunOrange dark:text-white transition-all"></textarea>
+                        </div>
+                        <button class="w-full py-5 bg-gradient-to-r from-sunOrange to-rosePink text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-sunOrange/20 hover:shadow-sunOrange/40 hover:-translate-y-1 transition-all active:scale-95">
+                            Send Cosmic Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="h-[400px] md:h-[500px] w-full relative group">
+    <div class="absolute inset-0 grayscale dark:invert dark:hue-rotate-180 opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125766.19577317354!2d78.0404245781308!3d9.9179959043216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00c58245406a71%3A0x87ec966a26aeac0e!2sMadurai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+            class="w-full h-full border-0" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+    
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        <div class="bg-indigoDark/90 backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl border border-white/10 flex items-center gap-3">
+            <div class="w-3 h-3 bg-sunOrange rounded-full animate-ping"></div>
+            <span class="text-xs font-black uppercase tracking-widest">Global HQ • Madurai</span>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+  <footer class="bg-slate-50 dark:bg-[#0F1122] border-t border-slate-200 dark:border-white/5 pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+            
+            <div class="sm:col-span-2">
+                <a href="index.html" class="inline-block">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-9 h-9 xl:w-10 xl:h-10 bg-gradient-to-r from-sunOrange to-rosePink rounded-lg flex items-center justify-center shadow-md">
+                            <i class="fas fa-sun text-white text-sm xl:text-base"></i>
+                        </div>
+                        <span class="text-lg xl:text-xl font-bold dark:text-white uppercase tracking-tight">
+                            Sunrise<span class="text-sunOrange">Astro</span>
+                        </span>
+                    </div>
+                </a>
+                <p class="text-slate-500 dark:text-slate-400 mb-6 max-w-xs leading-relaxed text-sm">
+                    Guiding you through the stars with a blend of ancient wisdom and modern technology.
+                </p>
+                <div class="flex flex-wrap gap-5">
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#1877F2] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#ff0050] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#FF0000] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#0A66C2] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#BD081C] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-sunOrange text-xs uppercase tracking-widest">Navigate</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="index.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Home</a></li>
+                    <li><a href="aboutus.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">About us</a></li>
+                    <li><a href="service.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Service</a></li>
+                    <li><a href="pricing.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Pricing</a></li>
+                    <li><a href="booknow.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Book Now</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-sunOrange text-xs uppercase tracking-widest">Discover</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="gallery.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Gallery</a></li>
+                    <li><a href="home2.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Home 2</a></li>
+                    <li><a href="404.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">404 Page</a></li>
+                    <li><a href="comingsoon.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Coming Soon</a></li>
+                    <li><a href="contact.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="sm:col-span-4 lg:col-span-1">
+                <h4 class="font-bold mb-6 text-sunOrange text-xs uppercase tracking-widest">Newsletter</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-xs mb-4 leading-relaxed">
+                    Subscribe to receive cosmic updates and your weekly horoscope.
+                </p>
+                <form class="space-y-3">
+                    <div class="relative">
+                        <input type="email" placeholder="Email Address" 
+                            class="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sunOrange transition-all dark:text-white">
+                    </div>
+                    <button class="w-full bg-gradient-to-r from-sunOrange to-rosePink text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-sunOrange/20 hover:shadow-sunOrange/40 hover:-translate-y-0.5 transition-all">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-slate-200 dark:border-white/5 text-center text-[10px] md:text-xs opacity-50 uppercase tracking-[0.2em] dark:text-white">
+            <p>&copy; 2026 Sunrise Astrology Platform. Crafted for cosmic explorers.</p>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        function astroApp() {
+            return {
+                darkMode: true,
+                direction: 'ltr',
+                isMobileMenuOpen: false,
+                menuItems: ['Home', 'Home 2', 'About us', 'Service', 'Pricing', 'Contact'],
+                
+                init() {
+                    this.darkMode = localStorage.getItem('theme') !== 'light';
+                    this.direction = localStorage.getItem('dir') || 'ltr';
+                    this.applyTheme();
+                },
+
+                toggleTheme() {
+                    this.darkMode = !this.darkMode;
+                    localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+                    this.applyTheme();
+                },
+
+                applyTheme() {
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                },
+
+                toggleDir() {
+                    this.direction = this.direction === 'ltr' ? 'rtl' : 'ltr';
+                    localStorage.setItem('dir', this.direction);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

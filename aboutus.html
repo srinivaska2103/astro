@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☀️</text></svg>">
+    <title>Sunrise Astrology | AI Birth Chart Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigoDark: '#1E1B4B',
+                        sunOrange: '#F97316',
+                        rosePink: '#FB7185',
+                        warmYellow: '#FDE68A',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap');
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            font-weight: 400;
+            transition: all 0.3s ease; 
+        }
+        
+        h1, h2, h3, .font-heading { 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 600;
+        }
+
+        .bg-sunrise {
+            background: linear-gradient(135deg, #F97316 0%, #FB7185 100%);
+        }
+
+        .glass-warm {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.2);
+        }
+
+        .dark .glass-warm {
+            background: rgba(30, 27, 75, 0.6);
+        }
+
+        .sun-glow {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-indigoDark text-slate-800 dark:text-white overflow-x-hidden" 
+      x-data="astroApp()" 
+      x-init="init()"
+      :dir="direction">
+
+    <nav class="fixed w-full z-50 top-0 left-0 bg-white dark:bg-indigoDark border-b border-gray-200 dark:border-white/10 transition-colors duration-300" x-data="{ open: false }">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 xl:px-8">
+    <div class="flex justify-between h-20 items-center">
+        <a href="index.html">
+<div class="flex-shrink-0 flex items-center gap-2 xl:gap-3">
+            <div class="w-9 h-9 xl:w-10 xl:h-10 bg-gradient-to-r from-sunOrange to-rosePink rounded-lg flex items-center justify-center shadow-md">
+                <i class="fas fa-sun text-white text-sm xl:text-base"></i>
+            </div>
+            <span class="text-lg xl:text-xl font-bold dark:text-white uppercase tracking-tight">
+                Sunrise<span class="text-sunOrange">Astro</span>
+            </span>
+        </div>
+        </a>
+        
+
+        <div class="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-gray-600 dark:text-gray-300" 
+     x-data="{ currentPath: window.location.pathname.split('/').pop() || 'index.html' }">
+    
+    <a href="index.html" 
+       :class="currentPath === 'index.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Home</a>
+    
+    <a href="home2.html" 
+       :class="currentPath === 'home2.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Home 2</a>
+    
+    <a href="aboutus.html" 
+       :class="currentPath === 'aboutus.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">About</a>
+    
+    <a href="service.html" 
+       :class="currentPath === 'service.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Service</a>
+    
+    <a href="pricing.html" 
+       :class="currentPath === 'pricing.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Pricing</a>
+    
+    <a href="contact.html" 
+       :class="currentPath === 'contact.html' ? 'text-sunOrange font-bold border-b-2 border-sunOrange' : 'hover:text-sunOrange'"
+       class="transition pb-1 whitespace-nowrap">Contact</a>
+</div>
+
+        <div class="hidden lg:flex items-center gap-3 xl:gap-5">
+            <button @click="toggleDir()" 
+                    class="text-[10px] font-black px-2 py-1 border rounded-md border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white transition uppercase"
+                    x-text="direction === 'ltr' ? 'RTL' : 'LTR'">
+            </button>
+
+            <button @click="toggleTheme()" class="text-gray-500 dark:text-warmYellow text-lg transition hover:scale-110">
+                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </button>
+
+<a href="login.html" 
+   class="text-xs xl:text-sm font-bold px-5 xl:px-6 py-2 xl:py-2.5 
+          border-2 border-sunOrange dark:border-warmYellow 
+          text-sunOrange dark:text-warmYellow 
+          rounded-full transition-all duration-300 
+          hover:bg-sunOrange hover:text-white dark:hover:bg-warmYellow dark:hover:text-indigoDark
+          active:scale-95 whitespace-nowrap">
+    Login
+</a>            
+            <a href="booknow.html" class="bg-gradient-to-r from-sunOrange to-rosePink text-white px-4 xl:px-6 py-2 xl:py-2.5 rounded-full text-xs xl:text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap">
+                Book Now
+            </a>
+        </div>
+
+        <div class="lg:hidden flex items-center gap-4">
+            <button @click="toggleTheme()" class="text-gray-600 dark:text-warmYellow">
+                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </button>
+            <button @click="open = !open" class="text-gray-900 dark:text-white focus:outline-none">
+                <i class="fas" :class="open ? 'fa-times text-2xl' : 'fa-bars text-xl'"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+    <div x-show="open" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="lg:hidden bg-white dark:bg-indigoDark border-t dark:border-white/5 px-6 py-8 shadow-2xl">
+      <div class="flex flex-col gap-2" 
+     x-data="{ currentPath: window.location.pathname.split('/').pop() || 'index.html' }">
+    
+    <a href="index.html" @click="open = false" 
+       :class="currentPath === 'index.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Home</a>
+    
+    <a href="home2.html" @click="open = false" 
+       :class="currentPath === 'home2.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Home 2</a>
+
+    <a href="aboutus.html" @click="open = false" 
+       :class="currentPath === 'aboutus.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">About Us</a>
+
+    <a href="service.html" @click="open = false" 
+       :class="currentPath === 'service.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Service</a>
+
+    <a href="pricing.html" @click="open = false" 
+       :class="currentPath === 'pricing.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Pricing</a>
+
+    <a href="contact.html" @click="open = false" 
+       :class="currentPath === 'contact.html' ? 'bg-sunOrange/10 text-sunOrange font-bold px-4' : 'text-gray-700 dark:text-gray-200'"
+       class="py-3 border-b dark:border-white/5 font-medium transition-all rounded-lg">Contact</a>
+
+    <div class="grid grid-cols-2 gap-3 mt-4">
+        <a href="login.html" class="flex items-center justify-center py-3 border dark:border-white/10 rounded-xl dark:text-white font-bold transition-transform active:scale-95">Login</a>
+        <a href="booknow.html" class="flex items-center justify-center py-3 bg-sunOrange text-white rounded-xl font-bold transition-transform active:scale-95">Book Now</a>
+    </div>
+
+    <button @click="toggleDir()" class="w-full py-3 bg-gray-100 dark:bg-white/5 text-xs font-black rounded-xl mt-2 dark:text-white uppercase tracking-widest border border-transparent active:border-sunOrange">
+        Switch to <span x-text="direction === 'ltr' ? 'RTL Layout' : 'LTR Layout'"></span>
+    </button>
+</div>
+    </div>
+</nav>
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-indigoDark">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="assets/herohome2" 
+             alt="Starry sky" 
+             class="w-full h-full object-cover opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-r from-indigoDark via-indigoDark/90 to-transparent"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 text-center lg:text-left space-y-8">
+                
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                    <span class="flex h-2 w-2">
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-sunOrange animate-ping"></span>
+                        <span class="absolute inline-flex rounded-full h-2 w-2 bg-sunOrange"></span>
+                    </span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-white">Innovation in Tradition</span>
+                </div>
+
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter text-white">
+                    Blending Ancient <br class="hidden sm:block">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">
+                        Tamil Astrology
+                    </span> <br class="hidden sm:block">
+                    with Modern Tech
+                </h1>
+
+                <p class="text-slate-300 text-sm md:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    We simplify complex astrology into clear, accurate, and accessible insights using intelligent automation and data-driven analysis.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                    <a href="contact.html" class="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-sunOrange to-rosePink text-white rounded-full font-black text-xs uppercase tracking-widest shadow-xl shadow-sunOrange/20 hover:shadow-sunOrange/40 hover:-translate-y-1 transition-all active:scale-95 text-center">
+                        Get Started Free
+                    </a>
+                    <a href="comingsoon.html" class="w-full sm:w-auto px-10 py-5 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all text-center">
+                        View Demo
+                    </a>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-8 pt-6">
+                    <div class="group">
+                        <p class="text-2xl font-black text-white group-hover:text-sunOrange transition-colors">100%</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Siddhanta Logic</p>
+                    </div>
+                    <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
+                    <div class="group">
+                        <p class="text-2xl font-black text-white group-hover:text-rosePink transition-colors">NASA</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Precision Data</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 relative hidden lg:block">
+                <div class="relative p-1 rounded-[3rem] bg-gradient-to-br from-sunOrange/50 to-rosePink/50 shadow-2xl">
+                    <div class="bg-indigoDark rounded-[2.8rem] overflow-hidden relative group aspect-square">
+                        
+                        <img src="assets/abt" 
+                             alt="AI Astrology Interface" 
+                             class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000">
+
+                        <div class="absolute inset-0 flex items-center justify-center z-10 bg-indigoDark/40 backdrop-blur-[2px]">
+                            <i class="fas fa-dharmachakra text-[12rem] text-white/5 absolute group-hover:rotate-90 transition-transform duration-1000"></i>
+                            <div class="text-center p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl shadow-2xl">
+                                <i class="fas fa-microchip text-5xl text-sunOrange mb-4 animate-pulse"></i>
+                                <p class="text-xs font-black text-white uppercase tracking-[0.4em]">Proprietary Engine</p>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#F97316_1px,transparent_1px)] [background-size:24px_24px]"></div>
+                    </div>
+                </div>
+                
+                <div class="absolute -bottom-6 -right-6 px-6 py-4 bg-white rounded-2xl shadow-2xl flex items-center gap-4 animate-bounce hover:pause">
+                   <div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-600">
+                       <i class="fas fa-shield-check"></i>
+                   </div>
+                   <div>
+                       <p class="text-[10px] font-black uppercase text-slate-400">Status</p>
+                       <p class="text-xs font-bold text-slate-900">Verified Precision</p>
+                   </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-indigoDark to-transparent"></div>
+</section>
+<section class="py-24 bg-white dark:bg-[#0F1122] transition-colors relative overflow-hidden" x-data="{ activeMission: 1 }">
+    
+    <div class="absolute top-1/2 left-0 w-72 h-72 bg-sunOrange/5 blur-[100px] rounded-full -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            
+            <div class="lg:col-span-5 order-2 lg:order-1">
+                <div class="relative p-1 rounded-[3rem] bg-gradient-to-br from-slate-200 to-slate-100 dark:from-white/10 dark:to-white/5">
+                    <div class="bg-white dark:bg-indigoDark rounded-[2.8rem] p-8 md:p-12 shadow-2xl relative overflow-hidden group">
+                        
+                        <div class="relative z-10 aspect-square flex flex-col items-center justify-center text-center">
+                            <div class="w-24 h-24 rounded-3xl bg-sunOrange/10 text-sunOrange flex items-center justify-center text-4xl mb-6 transition-transform duration-500 group-hover:rotate-12">
+                                <i class="fas" :class="activeMission === 1 ? 'fa-globe-asia' : (activeMission === 2 ? 'fa-microchip' : 'fa-users-gear')"></i>
+                            </div>
+                            <h3 class="text-2xl font-black dark:text-white uppercase tracking-tighter mb-2" 
+                                x-text="activeMission === 1 ? 'Global Access' : (activeMission === 2 ? 'Precision Tech' : 'Unified Tools')"></h3>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-[0.3em]">Our Core Priority</p>
+                        </div>
+
+                        <div class="absolute -bottom-10 -right-10 text-slate-100 dark:text-white/5 text-[12rem] font-black pointer-events-none">
+                            <i class="fas fa-dharmachakra"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 order-1 lg:order-2 space-y-8">
+                <div>
+                    <h2 class="text-xs font-black uppercase tracking-[0.4em] text-sunOrange mb-4">The Purpose</h2>
+                    <h2 class="text-4xl md:text-6xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                        Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Mission.</span>
+                    </h2>
+                </div>
+
+                <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Our mission is to make authentic astrology accessible to everyone through technology. We aim to provide accurate birth chart analysis, meaningful predictions, and easy-to-use tools for individuals, astrologers, and businesses.
+                </p>
+
+                <div class="space-y-4">
+                    <div @mouseenter="activeMission = 1" 
+                         class="p-6 rounded-2xl border transition-all duration-300 cursor-pointer"
+                         :class="activeMission === 1 ? 'bg-sunOrange/5 border-sunOrange shadow-lg translate-x-2' : 'bg-transparent border-slate-200 dark:border-white/10 opacity-60'">
+                        <div class="flex items-center gap-4">
+                            <span class="font-black text-sunOrange">01</span>
+                            <span class="font-bold dark:text-white uppercase tracking-widest text-xs">Accessibility For All</span>
+                        </div>
+                    </div>
+
+                    <div @mouseenter="activeMission = 2" 
+                         class="p-6 rounded-2xl border transition-all duration-300 cursor-pointer"
+                         :class="activeMission === 2 ? 'bg-rosePink/5 border-rosePink shadow-lg translate-x-2' : 'bg-transparent border-slate-200 dark:border-white/10 opacity-60'">
+                        <div class="flex items-center gap-4">
+                            <span class="font-black text-rosePink">02</span>
+                            <span class="font-bold dark:text-white uppercase tracking-widest text-xs">Data-Driven Precision</span>
+                        </div>
+                    </div>
+
+                    <div @mouseenter="activeMission = 3" 
+                         class="p-6 rounded-2xl border transition-all duration-300 cursor-pointer"
+                         :class="activeMission === 3 ? 'bg-indigo-500/5 border-indigo-500 shadow-lg translate-x-2' : 'bg-transparent border-slate-200 dark:border-white/10 opacity-60'">
+                        <div class="flex items-center gap-4">
+                            <span class="font-black text-indigo-500">03</span>
+                            <span class="font-bold dark:text-white uppercase tracking-widest text-xs">Ecosystem Innovation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-slate-50 dark:bg-[#0A0D18] transition-colors relative overflow-hidden">
+    
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-sunOrange/10 rounded-full -z-10"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-rosePink/5 rounded-full -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="bg-white dark:bg-indigoDark rounded-[3.5rem] p-12 md:p-20 lg:p-32 shadow-2xl border border-slate-200 dark:border-white/5 text-center relative overflow-hidden group">
+            
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-sunOrange/10 blur-[120px] rounded-full group-hover:bg-sunOrange/20 transition-colors duration-700"></div>
+
+            <div class="relative z-10 max-w-4xl mx-auto space-y-10">
+                
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-gradient-to-br from-sunOrange to-rosePink text-white text-3xl shadow-xl shadow-sunOrange/20 mb-4 transform group-hover:scale-110 group-hover:rotate-[360deg] transition-transform duration-1000">
+                    <i class="fas fa-eye"></i>
+                </div>
+
+                <div>
+                    <h2 class="text-xs font-black uppercase tracking-[0.5em] text-sunOrange mb-6">The Horizon</h2>
+                    <h2 class="text-4xl md:text-6xl lg:text-7xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                        Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Vision</span>
+                    </h2>
+                </div>
+
+                <p class="text-lg md:text-2xl text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    To become the <span class="dark:text-white font-bold">leading digital platform</span> for Tamil astrology, empowering people worldwide with accurate insights into their life, relationships, and future through the fusion of ancient wisdom and modern technology.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-12 border-t border-slate-100 dark:border-white/10">
+                    <div class="space-y-1">
+                        <p class="text-2xl font-black dark:text-white">Global</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Accessibility</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-2xl font-black dark:text-white">Accurate</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Calculations</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-2xl font-black dark:text-white">Empowered</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Communities</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-20 group-hover:opacity-100 transition-opacity duration-700">
+                <i class="fas fa-arrow-down animate-bounce text-slate-300"></i>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-slate-50 dark:bg-[#0A0D18] transition-colors overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16 lg:mb-20">
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-sunOrange mb-4">Our Capabilities</h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                A Powerful Platform for <br class="hidden md:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Modern Astrology.</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 lg:auto-rows-[180px]">
+            
+            <div class="md:col-span-3 lg:col-span-8 lg:row-span-2 group relative overflow-hidden p-8 rounded-[2.5rem] bg-indigoDark text-white border border-white/5 shadow-2xl">
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-sunOrange/20 text-sunOrange flex items-center justify-center text-xl mb-6">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Instant Birth Charts</h3>
+                        <p class="text-slate-400 text-sm max-w-md leading-relaxed">
+                            Generate high-precision Jathagam instantly. Our engine calculates complex planetary coordinates using NASA-grade data in milliseconds.
+                        </p>
+                    </div>
+                    <div class="mt-8 flex gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/10">Siddhanta Logic</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/10">Real-time</span>
+                    </div>
+                </div>
+                <i class="fas fa-dharmachakra absolute -bottom-10 -right-10 text-[15rem] text-white/5 group-hover:rotate-45 transition-transform duration-1000"></i>
+            </div>
+
+            <div class="md:col-span-3 lg:col-span-4 lg:row-span-2 group p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 shadow-xl hover:shadow-rosePink/5 transition-all">
+                <div class="w-12 h-12 rounded-2xl bg-rosePink/10 text-rosePink flex items-center justify-center text-xl mb-6">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Marriage Compatibility</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    Detailed Porutham matching with deep compatibility scoring for long-term relationship harmony.
+                </p>
+                <div class="mt-12 h-1.5 w-full bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-rosePink w-4/5 group-hover:w-full transition-all duration-1000"></div>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 lg:col-span-4 lg:row-span-2 group p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 shadow-xl transition-all">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl mb-6">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Planetary Analysis</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    Analyze Dasa, Bhukti, and planetary transits to understand life predictions and critical timings.
+                </p>
+            </div>
+
+            <div class="md:col-span-3 lg:col-span-4 lg:row-span-2 group p-8 rounded-[2.5rem] bg-gradient-to-br from-sunOrange to-rosePink text-white shadow-2xl transition-all hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-xl mb-6">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Detailed Reports</h3>
+                <p class="text-white/80 text-sm leading-relaxed">
+                    Download comprehensive PDF reports featuring 25+ pages of personalized analysis and remedies.
+                </p>
+                <div class="mt-6 flex justify-end">
+                    <i class="fas fa-arrow-down-to-bracket animate-bounce"></i>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 lg:col-span-4 lg:row-span-2 group p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 shadow-xl transition-all">
+                <div class="w-12 h-12 rounded-2xl bg-warmYellow/10 text-warmYellow flex items-center justify-center text-xl mb-6">
+                    <i class="fas fa-table-columns"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Smart Dashboard</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    Manage all saved charts and client reports in one centralized, high-speed interface.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-white dark:bg-[#0F1122] transition-colors relative overflow-hidden" x-data="{ hoverTab: 1 }">
+    
+    <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+        <div class="absolute top-10 left-10 w-64 h-64 border border-sunOrange rounded-full"></div>
+        <div class="absolute top-20 left-20 w-96 h-96 border border-rosePink rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            
+            <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
+                <div>
+                    <h2 class="text-xs font-black uppercase tracking-[0.4em] text-sunOrange mb-4">Unique Methodology</h2>
+                    <h2 class="text-4xl md:text-6xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                        Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Approach</span>
+                    </h2>
+                </div>
+
+                <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    We combine traditional Tamil astrology principles with modern AI technology to deliver precision-grade cosmic insights.
+                </p>
+
+                <div class="space-y-6 pt-4">
+                    <div class="flex items-start gap-5 group cursor-default" @mouseenter="hoverTab = 1">
+                        <div class="w-12 h-12 rounded-2xl bg-sunOrange/10 text-sunOrange flex items-center justify-center shrink-0 transition-transform group-hover:scale-110">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold dark:text-white text-lg">Classical Accuracy</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Calculations based on time-tested Siddantic methods for zero-error coordinates.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-5 group cursor-default" @mouseenter="hoverTab = 2">
+                        <div class="w-12 h-12 rounded-2xl bg-rosePink/10 text-rosePink flex items-center justify-center shrink-0 transition-transform group-hover:scale-110">
+                            <i class="fas fa-bolt-lightning"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold dark:text-white text-lg">Automated Logic</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Fast, AI-driven interpretations that convert data into meaningful human stories.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-5 group cursor-default" @mouseenter="hoverTab = 3">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center shrink-0 transition-transform group-hover:scale-110">
+                            <i class="fas fa-shield"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold dark:text-white text-lg">Reliable Results</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Consistent and scalable reports delivered through our secure cloud infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6">
+                <div class="relative p-8 md:p-12 rounded-[3rem] bg-slate-50 dark:bg-indigoDark border border-slate-200 dark:border-white/5 shadow-2xl overflow-hidden group">
+                    
+                    <div class="relative z-10 aspect-video flex items-center justify-center">
+                        <div class="relative w-full h-full flex items-center justify-between px-10">
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full bg-white dark:bg-white/5 shadow-xl flex items-center justify-center text-sunOrange mb-3">
+                                    <i class="fas fa-scroll"></i>
+                                </div>
+                                <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest">Ancient</span>
+                            </div>
+
+                            <div class="flex-1 h-px bg-gradient-to-r from-sunOrange via-indigo-500 to-rosePink relative">
+                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white dark:bg-indigoDark border border-indigo-500 flex items-center justify-center">
+                                    <i class="fas fa-plus text-[10px] text-indigo-500"></i>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full bg-white dark:bg-white/5 shadow-xl flex items-center justify-center text-rosePink mb-3">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest">Modern</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-white dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold dark:text-white">Analysis Confidence</span>
+                            <span class="text-xs font-black text-sunOrange">99.8%</span>
+                        </div>
+                        <div class="h-1.5 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-sunOrange to-rosePink w-[99%]"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-white dark:bg-[#0F1122] transition-colors relative overflow-hidden" x-data="{ activeBenefit: null }">
+    
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-sunOrange/5 blur-[130px] rounded-full -z-10"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-rosePink/5 blur-[100px] rounded-full -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-16 lg:mb-24 text-center lg:text-left">
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-sunOrange mb-4">The Platform Advantage</h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                Why Thousands Choose <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Our Platform</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            
+            <div @mouseenter="activeBenefit = 1" @mouseleave="activeBenefit = null"
+                 class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark">
+                <div class="w-14 h-14 rounded-2xl bg-sunOrange/10 text-sunOrange flex items-center justify-center text-2xl mb-8 transition-transform group-hover:rotate-12">
+                    <i class="fas fa-scroll"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Authentic Tamil Roots</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Calculations rooted deeply in classical Tamil astrology manuscripts, ensuring spiritual and mathematical accuracy.
+                </p>
+            </div>
+
+            <div @mouseenter="activeBenefit = 2" @mouseleave="activeBenefit = null"
+                 class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark">
+                <div class="w-14 h-14 rounded-2xl bg-rosePink/10 text-rosePink flex items-center justify-center text-2xl mb-8 transition-transform group-hover:scale-110">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Intelligent Automation</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Proprietary AI engines that process complex planetary data into instant, human-readable life predictions.
+                </p>
+            </div>
+
+            <div @mouseenter="activeBenefit = 3" @mouseleave="activeBenefit = null"
+                 class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-2xl mb-8 transition-transform group-hover:-rotate-12">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Simple Interface</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Designed for clarity. Whether you are a beginner or a pro, navigating cosmic data has never been easier.
+                </p>
+            </div>
+
+            <div @mouseenter="activeBenefit = 4" @mouseleave="activeBenefit = null"
+                 class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark">
+                <div class="w-14 h-14 rounded-2xl bg-green-500/10 text-green-500 flex items-center justify-center text-2xl mb-8 transition-transform group-hover:scale-110">
+                    <i class="fas fa-shield"></i>
+                </div>
+                <h3 class="text-xl font-bold dark:text-white mb-4">Secure & Private</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                    Enterprise-grade encryption for all birth data. We prioritize your cosmic privacy above all else.
+                </p>
+            </div>
+
+            <div @mouseenter="activeBenefit = 5" @mouseleave="activeBenefit = null"
+                 class="group p-10 rounded-[2.5rem] md:col-span-2 lg:col-span-2 bg-indigoDark text-white border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl shadow-sunOrange/10">
+                <div class="flex flex-col md:flex-row md:items-center gap-8">
+                    <div class="w-16 h-16 rounded-2xl bg-white/10 text-sunOrange flex items-center justify-center text-3xl shrink-0">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Designed for Beginners & Professionals</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            From basic Rasi charts to advanced Dasa-Bhukti calculations for professional astrologers, our platform scales with your expertise.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-white dark:bg-[#0F1122] transition-colors relative overflow-hidden" x-data="{ activeSegment: null }">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16 lg:mb-24">
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-sunOrange mb-4">Target Ecosystem</h2>
+            <p class="text-3xl md:text-5xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                Solutions Designed for <br class="hidden md:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Every Cosmic Need.</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div @mouseenter="activeSegment = 1" @mouseleave="activeSegment = null"
+                 class="group relative p-10 rounded-[3rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark overflow-hidden">
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-2xl bg-sunOrange/10 text-sunOrange flex items-center justify-center text-3xl mb-8 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <h3 class="text-2xl font-black dark:text-white mb-4 uppercase tracking-tighter">Individuals</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-8">
+                        For those seeking personal clarity. Access instant Rasi charts, life predictions, and compatibility reports with zero technical hurdle.
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-check text-sunOrange"></i> Self Discovery
+                        </li>
+                        <li class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-check text-sunOrange"></i> Personal Growth
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="absolute -bottom-10 -right-10 opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-10 transition-opacity">
+                    <i class="fas fa-fingerprint text-[15rem]"></i>
+                </div>
+            </div>
+
+            <div @mouseenter="activeSegment = 2" @mouseleave="activeSegment = null"
+                 class="group relative p-10 rounded-[3rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark overflow-hidden">
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-2xl bg-rosePink/10 text-rosePink flex items-center justify-center text-3xl mb-8 transition-transform group-hover:scale-110">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-2xl font-black dark:text-white mb-4 uppercase tracking-tighter">Astrologers</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-8">
+                        Streamline your practice. Manage hundreds of client birth charts, generate white-label PDF reports, and use advanced Dasa calculations.
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-check text-rosePink"></i> Client Management
+                        </li>
+                        <li class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-check text-rosePink"></i> Bulk Calculations
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="absolute -bottom-10 -right-10 opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-10 transition-opacity">
+                    <i class="fas fa-chart-network text-[15rem]"></i>
+                </div>
+            </div>
+
+            <div @mouseenter="activeSegment = 3" @mouseleave="activeSegment = null"
+                 class="group relative p-10 rounded-[3rem] bg-slate-50 dark:bg-indigoDark/50 border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:bg-white dark:hover:bg-indigoDark overflow-hidden">
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-3xl mb-8 transition-transform group-hover:-rotate-12">
+                        <i class="fas fa-building-columns"></i>
+                    </div>
+                    <h3 class="text-2xl font-black dark:text-white mb-4 uppercase tracking-tighter">Businesses</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-8">
+                        Integrate astrology into your app. We provide high-speed APIs and SDKs for lifestyle, dating, and wellness businesses.
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-check text-indigo-500"></i> API Integration
+                        </li>
+                        <li class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                            <i class="fas fa-check text-indigo-500"></i> Scalable Infrastructure
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="absolute -bottom-10 -right-10 opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-10 transition-opacity">
+                    <i class="fas fa-server text-[15rem]"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-slate-50 dark:bg-[#0A0D18] transition-colors overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16 lg:mb-24">
+            <h2 class="text-xs font-black uppercase tracking-[0.4em] text-sunOrange mb-4">The Visionaries</h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold dark:text-white leading-tight tracking-tighter">
+                Meet the Minds Behind <br class="hidden md:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Vexa Tech & Sunrise Astro.</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div class="group relative h-[450px] rounded-[2.5rem] overflow-hidden bg-indigoDark shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <img src="assets/team1" 
+                     alt="John" 
+                     class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-indigoDark via-indigoDark/20 to-transparent"></div>
+
+                <div class="absolute inset-x-4 bottom-4 p-6 rounded-[2rem] bg-white/10 backdrop-blur-xl border border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 class="text-xl font-bold text-white mb-1">Srinivas K A</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-sunOrange mb-4">CEO & Founder</p>
+                    
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-sunOrange transition-colors">
+                            <i class="fab fa-linkedin-in text-xs"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-rosePink transition-colors">
+                            <i class="fab fa-twitter text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-8 left-8 group-hover:opacity-0 transition-opacity">
+                    <h3 class="text-xl font-bold text-white">Srinivas K A</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-300">CEO & Founder</p>
+                </div>
+            </div>
+
+            <div class="group relative h-[450px] rounded-[2.5rem] overflow-hidden bg-indigoDark shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <img src="assets/team2" 
+                     alt="Technical Lead" 
+                     class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-indigoDark via-indigoDark/20 to-transparent"></div>
+
+                <div class="absolute inset-x-4 bottom-4 p-6 rounded-[2rem] bg-white/10 backdrop-blur-xl border border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 class="text-xl font-bold text-white mb-1">Priya Sharma</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-rosePink mb-4">Head of AI Delivery</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-rosePink transition-colors">
+                            <i class="fab fa-linkedin-in text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-8 left-8 group-hover:opacity-0 transition-opacity">
+                    <h3 class="text-xl font-bold text-white">Priya Sharma</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-300">Technical Lead</p>
+                </div>
+            </div>
+
+            <div class="group relative h-[450px] rounded-[2.5rem] overflow-hidden bg-indigoDark shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <img src="assets/team3" 
+                     alt="Design Lead" 
+                     class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-indigoDark via-indigoDark/20 to-transparent"></div>
+
+                <div class="absolute inset-x-4 bottom-4 p-6 rounded-[2rem] bg-white/10 backdrop-blur-xl border border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 class="text-xl font-bold text-white mb-1">Arjun V</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-warmYellow mb-4">UI/UX Strategy</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-warmYellow transition-colors">
+                            <i class="fab fa-dribbble text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-8 left-8 group-hover:opacity-0 transition-opacity">
+                    <h3 class="text-xl font-bold text-white">Arjun V</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-300">Design Lead</p>
+                </div>
+            </div>
+
+            <div class="group relative h-[450px] rounded-[2.5rem] overflow-hidden bg-indigoDark shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <img src="assets/team4" 
+                     alt="Lead Developer" 
+                     class="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-indigoDark via-indigoDark/20 to-transparent"></div>
+
+                <div class="absolute inset-x-4 bottom-4 p-6 rounded-[2rem] bg-white/10 backdrop-blur-xl border border-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 class="text-xl font-bold text-white mb-1">Nithish Kumar</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-4">Full Stack Engineer</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-indigo-400 transition-colors">
+                            <i class="fab fa-github text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-8 left-8 group-hover:opacity-0 transition-opacity">
+                    <h3 class="text-xl font-bold text-white">Nithish Kumar</h3>
+                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-300">Lead Developer</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="py-24 bg-white dark:bg-[#0F1122] transition-colors overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="relative bg-indigoDark rounded-[3rem] p-10 md:p-16 lg:p-24 overflow-hidden shadow-2xl shadow-sunOrange/20 border border-white/5 group">
+            
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-sunOrange/20 blur-[100px] rounded-full animate-pulse"></div>
+            <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-rosePink/10 blur-[80px] rounded-full"></div>
+
+            <div class="relative z-10 flex flex-col items-center text-center">
+                
+              
+
+                <h2 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-8 tracking-tighter">
+                    Start Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Astrology Journey</span> Today.
+                </h2>
+
+                <p class="text-slate-400 text-sm md:text-xl mb-12 max-w-2xl font-medium leading-relaxed">
+                    Discover your birth chart and unlock insights about your future. Join over 10,000 users decoding their destiny with Vexa Tech’s precision engine.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                    <a href="login.html" class="w-full sm:w-auto px-12 py-6 bg-gradient-to-r from-sunOrange to-rosePink text-white rounded-full font-black text-sm uppercase tracking-widest shadow-xl shadow-sunOrange/20 hover:shadow-sunOrange/40 hover:-translate-y-1 transition-all active:scale-95 text-center">
+                        Get Started <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex flex-wrap justify-center items-center gap-6 opacity-60">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-sunOrange text-xs"></i>
+                        <span class="text-[10px] font-bold text-white uppercase tracking-widest">No Credit Card Required</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-check-circle text-sunOrange text-xs"></i>
+                        <span class="text-[10px] font-bold text-white uppercase tracking-widest">Instant Results</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden lg:block absolute bottom-12 right-12 opacity-10 group-hover:opacity-40 transition-opacity duration-700">
+                <i class="fas fa-dharmachakra text-9xl text-white rotate-12 group-hover:rotate-45 transition-transform duration-1000"></i>
+            </div>
+        </div>
+    </div>
+</section>
+ <footer class="bg-slate-50 dark:bg-[#0F1122] border-t border-slate-200 dark:border-white/5 pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+            
+            <div class="sm:col-span-2">
+                <a href="index.html" class="inline-block">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-9 h-9 xl:w-10 xl:h-10 bg-gradient-to-r from-sunOrange to-rosePink rounded-lg flex items-center justify-center shadow-md">
+                            <i class="fas fa-sun text-white text-sm xl:text-base"></i>
+                        </div>
+                        <span class="text-lg xl:text-xl font-bold dark:text-white uppercase tracking-tight">
+                            Sunrise<span class="text-sunOrange">Astro</span>
+                        </span>
+                    </div>
+                </a>
+                <p class="text-slate-500 dark:text-slate-400 mb-6 max-w-xs leading-relaxed text-sm">
+                    Guiding you through the stars with a blend of ancient wisdom and modern technology.
+                </p>
+                <div class="flex flex-wrap gap-5">
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#1877F2] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#ff0050] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#FF0000] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#0A66C2] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-[#BD081C] transition-all transform hover:-translate-y-1 text-xl"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-sunOrange text-xs uppercase tracking-widest">Navigate</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="index.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Home</a></li>
+                    <li><a href="aboutus.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">About us</a></li>
+                    <li><a href="service.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Service</a></li>
+                    <li><a href="pricing.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Pricing</a></li>
+                    <li><a href="booknow.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Book Now</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-sunOrange text-xs uppercase tracking-widest">Discover</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="gallery.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Gallery</a></li>
+                    <li><a href="home2.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Home 2</a></li>
+                    <li><a href="404.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">404 Page</a></li>
+                    <li><a href="comingsoon.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Coming Soon</a></li>
+                    <li><a href="contact.html" class="text-slate-500 dark:text-slate-400 hover:text-sunOrange transition">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="sm:col-span-4 lg:col-span-1">
+                <h4 class="font-bold mb-6 text-sunOrange text-xs uppercase tracking-widest">Newsletter</h4>
+                <p class="text-slate-500 dark:text-slate-400 text-xs mb-4 leading-relaxed">
+                    Subscribe to receive cosmic updates and your weekly horoscope.
+                </p>
+                <form class="space-y-3">
+                    <div class="relative">
+                        <input type="email" placeholder="Email Address" 
+                            class="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-sunOrange transition-all dark:text-white">
+                    </div>
+                    <button class="w-full bg-gradient-to-r from-sunOrange to-rosePink text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-sunOrange/20 hover:shadow-sunOrange/40 hover:-translate-y-0.5 transition-all">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-slate-200 dark:border-white/5 text-center text-[10px] md:text-xs opacity-50 uppercase tracking-[0.2em] dark:text-white">
+            <p>&copy; 2026 Sunrise Astrology Platform. Crafted for cosmic explorers.</p>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        function astroApp() {
+            return {
+                darkMode: true,
+                direction: 'ltr',
+                isMobileMenuOpen: false,
+                menuItems: ['Home', 'Home 2', 'About us', 'Service', 'Pricing', 'Contact'],
+                
+                init() {
+                    this.darkMode = localStorage.getItem('theme') !== 'light';
+                    this.direction = localStorage.getItem('dir') || 'ltr';
+                    this.applyTheme();
+                },
+
+                toggleTheme() {
+                    this.darkMode = !this.darkMode;
+                    localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+                    this.applyTheme();
+                },
+
+                applyTheme() {
+                    document.documentElement.classList.toggle('dark', this.darkMode);
+                },
+
+                toggleDir() {
+                    this.direction = this.direction === 'ltr' ? 'rtl' : 'ltr';
+                    localStorage.setItem('dir', this.direction);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
