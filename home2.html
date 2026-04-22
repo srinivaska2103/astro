@@ -767,99 +767,85 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             
-            <div @mouseenter="active = 1" @mouseleave="active = null"
-                 class="group relative p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sunOrange/10">
-                
-                <div class="absolute top-8 right-8 text-slate-100 dark:text-white/5 text-6xl group-hover:text-sunOrange/10 transition-colors">
-                    <i class="fas fa-quote-right"></i>
-                </div>
-
-                <div class="relative z-10">
-                    <div class="flex gap-1 text-warmYellow mb-6">
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                    </div>
-
-                    <p class="text-slate-600 dark:text-slate-300 italic mb-8 leading-relaxed">
-                        "The AI insights are shockingly accurate. As a developer, I appreciate the precision of the coordinate calculations. It's the Notion of astrology."
-                    </p>
-
-                    <div class="flex items-center gap-4">
-                        <div class="relative">
-                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-sunOrange/20 group-hover:border-sunOrange transition-colors">
-                                <img src="assets/t2" alt="User" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="font-bold dark:text-white text-sm uppercase tracking-tight">Arun Kumar</h4>
-                            <p class="text-[10px] font-black text-sunOrange uppercase tracking-widest">Tech Lead, Madurai</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div @mouseenter="active = 2" @mouseleave="active = null"
-                 class="group relative p-8 rounded-[2.5rem] bg-gradient-to-br from-white to-slate-50 dark:from-indigoDark dark:to-[#16193a] border-2 border-sunOrange shadow-xl transition-all duration-500 hover:-translate-y-2 lg:scale-105 z-10">
-                
-                <div class="relative z-10">
-                    <div class="flex gap-1 text-warmYellow mb-6">
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                    </div>
-
-                    <p class="text-slate-700 dark:text-white font-medium mb-8 leading-relaxed">
-                        "Integrating the API into our matrimony platform was seamless. The Tamil language support and PDF generation saved us months of development time."
-                    </p>
-
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-rosePink/20 group-hover:border-rosePink transition-colors">
-                            <img src="assets/t3" alt="User" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
-                        </div>
-                        <div>
-                            <h4 class="font-bold dark:text-white text-sm uppercase tracking-tight">Deepa V.</h4>
-                            <p class="text-[10px] font-black text-rosePink uppercase tracking-widest">Product Manager</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div @mouseenter="active = 3" @mouseleave="active = null"
-                 class="group relative p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sunOrange/10">
-                
-                <div class="relative z-10">
-                    <div class="flex gap-1 text-warmYellow mb-6">
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                        <i class="fas fa-star text-xs"></i>
-                    </div>
-
-                    <p class="text-slate-600 dark:text-slate-300 italic mb-8 leading-relaxed">
-                        "I use this daily to manage my consulting clients. The dashboard is clean, and being able to save multiple family profiles is a game-changer."
-                    </p>
-
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-sunOrange/20 group-hover:border-sunOrange transition-colors">
-                            <img src="assets/t4" alt="User" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
-                        </div>
-                        <div>
-                            <h4 class="font-bold dark:text-white text-sm uppercase tracking-tight">Rajesh S.</h4>
-                            <p class="text-[10px] font-black text-sunOrange uppercase tracking-widest">Professional Astrologer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <div @mouseenter="active = 1" @mouseleave="active = null"
+         class="group relative p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sunOrange/10">
+        
+        <div class="absolute top-8 right-8 text-slate-100 dark:text-white/5 text-6xl group-hover:text-sunOrange/10 transition-colors">
+            <i class="fas fa-quote-right"></i>
         </div>
+
+        <div class="relative z-10">
+            <div class="flex gap-1 text-warmYellow mb-6">
+                <i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i>
+            </div>
+
+            <p class="text-slate-600 dark:text-slate-300 italic mb-8 leading-relaxed text-sm lg:text-base">
+                "The AI insights are shockingly accurate. As a developer, I appreciate the precision of the coordinate calculations. It's the Notion of astrology."
+            </p>
+
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-sunOrange/20 group-hover:border-sunOrange transition-colors">
+                    <img src="assets/t2" alt="User" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div>
+                    <h4 class="font-bold dark:text-white text-xs lg:text-sm uppercase tracking-tight">Arun Kumar</h4>
+                    <p class="text-[9px] font-black text-sunOrange uppercase tracking-widest">Tech Lead, Madurai</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div @mouseenter="active = 2" @mouseleave="active = null"
+         class="group relative p-8 rounded-[2.5rem] bg-gradient-to-br from-white to-slate-50 dark:from-indigoDark dark:to-[#16193a] border-2 border-sunOrange shadow-xl transition-all duration-500 hover:-translate-y-2 lg:scale-105 z-10">
+        
+        <div class="relative z-10">
+            <div class="flex gap-1 text-warmYellow mb-6">
+                <i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i>
+            </div>
+
+            <p class="text-slate-700 dark:text-white font-medium mb-8 leading-relaxed text-sm lg:text-base">
+                "Integrating the API into our matrimony platform was seamless. The Tamil language support and PDF generation saved us months."
+            </p>
+
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-rosePink/20 group-hover:border-rosePink transition-colors">
+                    <img src="assets/t3" alt="User" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                </div>
+                <div>
+                    <h4 class="font-bold dark:text-white text-xs lg:text-sm uppercase tracking-tight">Deepa V.</h4>
+                    <p class="text-[9px] font-black text-rosePink uppercase tracking-widest">Product Manager</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div @mouseenter="active = 3" @mouseleave="active = null"
+         class="group relative p-8 rounded-[2.5rem] bg-white dark:bg-indigoDark border border-slate-200 dark:border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sunOrange/10">
+        
+        <div class="relative z-10">
+            <div class="flex gap-1 text-warmYellow mb-6">
+                <i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i>
+            </div>
+
+            <p class="text-slate-600 dark:text-slate-300 italic mb-8 leading-relaxed text-sm lg:text-base">
+                "I use this daily to manage my consulting clients. The dashboard is clean, and being able to save multiple family profiles is a game-changer."
+            </p>
+
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-sunOrange/20 group-hover:border-sunOrange transition-colors">
+                    <img src="assets/t4" alt="User" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                </div>
+                <div>
+                    <h4 class="font-bold dark:text-white text-xs lg:text-sm uppercase tracking-tight">Rajesh S.</h4>
+                    <p class="text-[9px] font-black text-sunOrange uppercase tracking-widest">Professional Astrologer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
     </div>
 </section>
 <section class="py-24 bg-white dark:bg-[#0F1122] transition-colors overflow-hidden">
