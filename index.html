@@ -110,14 +110,19 @@
 </div>
 
         <div class="hidden lg:flex items-center gap-3 xl:gap-5">
-            <button @click="toggleDir()" 
-                    class="text-[10px] font-black px-2 py-1 border rounded-md border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white transition uppercase"
-                    x-text="direction === 'ltr' ? 'RTL' : 'LTR'">
-            </button>
+            <div class="flex items-center gap-3">
+    <!-- RTL/LTR Toggle -->
+    <button @click="toggleDir()" 
+            class="w-10 h-10 flex items-center justify-center text-[10px] font-black border rounded-xl border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white dark:text-white transition uppercase shadow-sm"
+            x-text="direction === 'ltr' ? 'RTL' : 'LTR'">
+    </button>
 
-            <button @click="toggleTheme()" class="text-gray-500 dark:text-warmYellow text-lg transition hover:scale-110">
-                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
-            </button>
+    <!-- Theme Toggle -->
+    <button @click="toggleTheme()" 
+            class="w-10 h-10 flex items-center justify-center text-gray-500 dark:text-warmYellow border rounded-xl border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white transition shadow-sm">
+        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'" class="text-sm"></i>
+    </button>
+</div>
 
 <a href="login.html" 
    class="text-xs xl:text-sm font-bold px-5 xl:px-6 py-2 xl:py-2.5 
@@ -134,9 +139,7 @@
         </div>
 
         <div class="lg:hidden flex items-center gap-4">
-            <button @click="toggleTheme()" class="text-gray-600 dark:text-warmYellow">
-                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
-            </button>
+           
             <button @click="open = !open" class="text-gray-900 dark:text-white focus:outline-none">
                 <i class="fas" :class="open ? 'fa-times text-2xl' : 'fa-bars text-xl'"></i>
             </button>
@@ -180,80 +183,117 @@
         <a href="login.html" class="flex items-center justify-center py-3 border dark:border-white/10 rounded-xl dark:text-white font-bold transition-transform active:scale-95">Login</a>
         <a href="booknow.html" class="flex items-center justify-center py-3 bg-sunOrange text-white rounded-xl font-bold transition-transform active:scale-95">Book Now</a>
     </div>
-
-    <button @click="toggleDir()" class="w-full py-3 bg-gray-100 dark:bg-white/5 text-xs font-black rounded-xl mt-2 dark:text-white uppercase tracking-widest border border-transparent active:border-sunOrange">
-        Switch to <span x-text="direction === 'ltr' ? 'RTL Layout' : 'LTR Layout'"></span>
+   <div class="flex gap-3 mt-3">
+    <!-- Theme Toggle -->
+    <button @click="toggleTheme()" 
+            class="w-14 flex items-center justify-center bg-gray-100 dark:bg-white/5 rounded-xl text-gray-600 dark:text-warmYellow border dark:border-white/10 transition-all">
+        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
     </button>
+
+    <!-- Layout Toggle -->
+    <button @click="toggleDir()" 
+            class="flex-1 py-4 bg-gray-100 dark:bg-white/5 text-[10px] font-black rounded-xl dark:text-white uppercase tracking-widest border dark:border-white/10 active:border-sunOrange transition-all">
+        <span x-text="direction === 'ltr' ? 'RTL Mode' : 'LTR Mode'"></span>
+    </button>
+</div>
 </div>
     </div>
 </nav>
 
-    <section class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden bg-white dark:bg-[#0F1122] transition-colors" x-data="heroDemo()">
+   <!-- Hero Section -->
+<section class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden bg-white dark:bg-[#0F1122] transition-colors">
     
+    <!-- Dynamic Background Glows -->
     <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-sunOrange/10 dark:bg-rosePink/5 blur-[150px] rounded-full -z-10"></div>
+    <div class="absolute top-1/2 right-0 w-[400px] h-[400px] bg-indigo-500/5 blur-[120px] rounded-full -z-10"></div>
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Main Container: Centered Alignment -->
+        <div class="flex flex-col items-center text-center">
             
-            <div class="lg:col-span-6 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sunOrange/10 border border-sunOrange/20 text-sunOrange text-xs sm:text-sm font-bold uppercase tracking-wider mb-6">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sunOrange opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-sunOrange"></span>
-                    </span>
-                    The Next-Gen Cosmic Platform
-                </div>
-
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight dark:text-white mb-6">
-                    AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Birth Chart Analysis</span> & Astrology Platform
-                </h1>
-
-                <p class="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                    Generate detailed natal charts, insights, and predictions instantly — built for professional astrologers & cosmic explorers.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                    <a href="contact.html" class="w-full sm:w-auto text-center px-10 py-5 bg-gradient-to-r from-sunOrange to-rosePink text-white rounded-full font-extrabold text-lg sm:text-xl shadow-[0_15px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_20px_40px_rgba(249,115,22,0.5)] transition-all transform hover:-translate-y-1 active:scale-95">
-                        🔮 Start Free Trial
-                    </a>
-                </div>
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sunOrange/10 border border-sunOrange/20 text-sunOrange text-xs sm:text-sm font-bold uppercase tracking-wider mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sunOrange opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-sunOrange"></span>
+                </span>
+                The Next-Gen Cosmic Platform
             </div>
 
-            <div class="lg:col-span-6 relative">
+            <!-- Centered Heading -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tighter dark:text-white mb-8 max-w-5xl mx-auto">
+                AI-Powered <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">Birth Chart Analysis</span> & Astrology Platform
+            </h1>
+
+            <!-- Subheading -->
+            <p class="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+                Generate detailed natal charts, insights, and predictions instantly. Built with NASA-grade precision for professional astrologers and cosmic explorers.
+            </p>
+
+            <!-- Centered Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 mb-20 w-full sm:w-auto">
+                <a href="booknow.html" class="w-full sm:w-auto text-center px-10 py-5 bg-sunOrange text-white rounded-full font-black text-sm uppercase tracking-widest hover:bg-rosePink transition-all shadow-2xl shadow-sunOrange/30 hover:-translate-y-1 active:scale-95">
+                    Start Free Trial <i class="fas fa-bolt ml-2 text-[10px]"></i>
+                </a>
+                <a href="contact.html" class="w-full sm:w-auto text-center px-10 py-5 bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white rounded-full font-black text-sm uppercase tracking-widest border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all active:scale-95">
+                    Contact Support
+                </a>
+            </div>
+
+            <!-- Feature Image Container (Centered) -->
+            <div class="w-full max-w-5xl relative group">
+                <!-- Outer Glow -->
+                <div class="absolute -inset-4 bg-gradient-to-r from-sunOrange/30 to-rosePink/30 blur-3xl rounded-[3rem] opacity-40 dark:opacity-20 group-hover:opacity-60 transition-opacity"></div>
+                
+               <div class="relative bg-white dark:bg-indigoDark p-3 sm:p-4 rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-gray-200 dark:border-white/5">
+    <!-- Removed fixed aspect ratio, added h-auto -->
+    <div class="bg-slate-50 dark:bg-[#0A0D18] rounded-[2rem] overflow-hidden relative">
+        <img src="assets/indexhero5" 
+             alt="Astrology Dashboard Interface" 
+             class="w-full h-auto block transition-transform duration-1000 group-hover:scale-105">
         
+        <!-- Premium Interactive Overlays -->
+        <div class="absolute inset-0 bg-gradient-to-t from-indigoDark/80 via-transparent to-transparent flex flex-col justify-end p-6 sm:p-10 opacity-0 group-hover:opacity-100 transition-all duration-700">
+             <div class="flex flex-wrap gap-3">
+                <span class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-[10px] font-black uppercase text-white tracking-widest">Real-time Transits</span>
+                <span class="px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-[10px] font-black uppercase text-white tracking-widest">AI Predictions</span>
+             </div>
+        </div>
 
-                <div class="relative bg-white dark:bg-indigoDark p-5 sm:p-8 rounded-[2rem] shadow-2xl border border-gray-200 dark:border-white/5 transition-all">
-                    
-                    <div class="aspect-square bg-slate-50 dark:bg-[#0A0D18] rounded-2xl flex items-center justify-center overflow-hidden border border-slate-100 dark:border-white/5 relative group">
-                        
-                        <div class="w-[80%] h-[80%] border-4 border-dashed border-sunOrange/30 rounded-full animate-[spin_30s_linear_infinite] group-hover:animate-[spin_10s_linear_infinite] flex items-center justify-center">
-                            <div class="w-[70%] h-[70%] border-2 border-dashed border-rosePink/40 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
-                                <i class="fas fa-sun text-5xl text-warmYellow drop-shadow-[0_0_10px_rgba(253,230,138,0.7)] animate-pulse"></i>
-                                <p class="text-[10px] font-black uppercase text-sunOrange tracking-widest text-center max-w-[120px]" x-text="statusText"></p>
-                            </div>
-                        </div>
-
-                        <template x-for="(marker, index) in chartMarkers" :key="index">
-                            <div class="absolute w-4 h-4 bg-gradient-to-br from-warmYellow to-sunOrange rounded-full shadow-lg border-2 border-white transition-all duration-1000"
-                                 :class=" marker.placed ? 'opacity-100 scale-100' : 'opacity-0 scale-50'"
-                                 :style="`top: ${marker.top}%; left: ${marker.left}%; transition-delay: ${index * 150}ms`">
-                            </div>
-                        </template>
-
-                        <div class="absolute inset-0 bg-black/5 dark:bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <div class="px-6 py-2 bg-white/20 dark:bg-indigoDark/30 backdrop-blur-sm rounded-full text-xs font-black uppercase text-white tracking-widest border border-white/20">
-                                Interactive Platform View
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
+        <!-- Floating Badge -->
+        <div class="absolute top-6 right-6 hidden md:flex items-center gap-3 px-4 py-3 bg-white/90 dark:bg-indigoDark/90 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 animate-bounce-slow">
+            <div class="w-10 h-10 rounded-full bg-sunOrange/20 flex items-center justify-center">
+                <i class="fas fa-star text-sunOrange animate-spin-slow"></i>
+            </div>
+            <div class="text-left">
+                <p class="text-[10px] font-black uppercase text-sunOrange tracking-tighter">99.9% Accuracy</p>
+                <p class="text-[9px] text-slate-500 dark:text-slate-400">NASA JPL Data</p>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
 
         </div>
     </div>
 </section>
+
+<style>
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+        animation: spin-slow 12s linear infinite;
+    }
+    @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .animate-bounce-slow {
+        animation: bounce-slow 4s ease-in-out infinite;
+    }
+</style>
 
 <script>
     function heroDemo() {
@@ -545,76 +585,240 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(249, 115, 22, 0.2); border-radius: 10px; }
 </style>
-<section class="py-24 bg-white dark:bg-[#0F1122] transition-colors overflow-hidden" x-data="flowSystem()">
+<section class="py-12 md:py-24 bg-white dark:bg-[#0F1122] transition-colors overflow-hidden" 
+         x-data="flowSystem()">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center mb-20">
-            <h2 class="text-xs font-black uppercase tracking-[0.3em] text-rosePink mb-4">The Process</h2>
-            <p class="text-3xl md:text-5xl font-extrabold dark:text-white">Your Cosmic Roadmap in <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">4 Simple Steps</span></p>
+        <!-- Header: Adaptive font sizing -->
+        <div class="text-center mb-10 md:mb-20">
+            <h2 class="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-rosePink mb-3 md:mb-4">The Process</h2>
+            <p class="text-2xl min-[360px]:text-3xl md:text-5xl font-extrabold dark:text-white tracking-tight">
+                Your Cosmic Roadmap in <br class="block md:hidden">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">4 Simple Steps</span>
+            </p>
         </div>
 
-        <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
             
-            <div class="lg:col-span-5 space-y-4">
+            <!-- Steps Column -->
+            <div class="lg:col-span-5 order-2 lg:order-1 space-y-3 md:space-y-4">
                 <template x-for="(step, index) in steps" :key="index">
-                    <div @click="activeStep = index" 
-                         :class="activeStep === index ? 'border-sunOrange bg-sunOrange/5 shadow-lg' : 'border-transparent hover:bg-slate-50 dark:hover:bg-white/5'"
-                         class="group cursor-pointer p-6 rounded-2xl border-l-4 transition-all duration-300">
+                    <div @click="manualSelect(index)" 
+                         :class="activeStep === index ? 'border-sunOrange bg-sunOrange/5 shadow-lg scale-[1.02]' : 'border-transparent hover:bg-slate-50 dark:hover:bg-white/5'"
+                         class="group cursor-pointer p-4 md:p-6 rounded-2xl border-l-4 transition-all duration-300 transform">
                         
-                        <div class="flex items-start gap-5">
+                        <div class="flex items-start gap-4 md:gap-5">
+                            <!-- Number Badge -->
                             <div :class="activeStep === index ? 'bg-sunOrange text-white' : 'bg-slate-200 dark:bg-white/10 text-slate-500'"
-                                 class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-black text-sm transition-colors"
+                                 class="w-8 h-8 md:w-10 md:h-10 rounded-full flex-shrink-0 flex items-center justify-center font-black text-xs md:text-sm transition-colors"
                                  x-text="'0' + (index + 1)">
                             </div>
                             
-                            <div>
+                            <div class="flex-1">
                                 <h3 :class="activeStep === index ? 'text-sunOrange' : 'dark:text-white'"
-                                    class="text-xl font-bold mb-2 transition-colors" x-text="step.title"></h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed" x-text="step.desc"></p>
+                                    class="text-lg md:text-xl font-bold mb-1 md:mb-2 transition-colors" x-text="step.title"></h3>
+                                <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed" x-text="step.desc"></p>
                             </div>
+                        </div>
+                        
+                        <!-- Mobile Progress Bar (visible only when active) -->
+                        <div class="mt-4 h-1 w-full bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden lg:hidden" x-show="activeStep === index">
+                             <div class="h-full bg-sunOrange transition-all duration-[5000ms] ease-linear" :style="`width: ${progress}%`" x-show="activeStep === index"></div>
                         </div>
                     </div>
                 </template>
             </div>
 
-            <div class="lg:col-span-7 relative">
-                <div class="absolute inset-0 bg-gradient-to-br from-sunOrange/20 to-rosePink/20 blur-[100px] rounded-full opacity-50"></div>
+            <!-- Visualization Column -->
+            <div class="lg:col-span-7 order-1 lg:order-2 relative px-2 md:px-0">
+                <!-- Background Glow -->
+                <div class="absolute inset-0 bg-gradient-to-br from-sunOrange/20 to-rosePink/20 blur-[60px] md:blur-[100px] rounded-full opacity-50"></div>
                 
-                <div class="relative bg-slate-900 rounded-[2.5rem] p-3 shadow-2xl border-[8px] border-slate-800">
-                    <div class="bg-indigoDark rounded-[2rem] overflow-hidden aspect-video sm:aspect-[16/10] relative flex items-center justify-center">
+                <!-- "Device" Container -->
+                <div class="relative bg-slate-900 rounded-[2rem] md:rounded-[2.5rem] p-2 md:p-3 shadow-2xl border-[4px] md:border-[8px] border-slate-800 transition-all">
+                    <div class="bg-indigoDark rounded-[1.5rem] md:rounded-[2rem] overflow-hidden aspect-[4/3] sm:aspect-video lg:aspect-[16/10] relative flex items-center justify-center">
                         
-                        <div x-show="activeStep === 0" x-transition.opacity.duration.500ms class="w-full h-full flex items-center justify-center p-8">
-                            <div class="w-full max-w-xs space-y-4 animate-pulse">
-                                <div class="h-10 bg-white/10 rounded-lg"></div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div class="h-10 bg-white/10 rounded-lg"></div>
-                                    <div class="h-10 bg-white/10 rounded-lg"></div>
-                                </div>
-                                <div class="h-12 bg-sunOrange rounded-full"></div>
+                        <!-- Step 1 View: Input Mockup -->
+                        <div x-show="activeStep === 0" x-transition:enter="transition duration-500" x-transition:enter-start="opacity-0 translate-y-4" class="w-full h-full flex items-center justify-center p-6 md:p-8">
+                            <div class="w-full max-w-sm p-5 md:p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl space-y-4 md:space-y-6">
+    
+    <!-- Top Meta Info -->
+    <div class="flex justify-between items-center px-1">
+        <span class="text-[9px] font-black uppercase text-sunOrange tracking-[0.2em]">Step 01 / Input</span>
+        <div class="flex gap-1">
+            <div class="w-1 h-1 rounded-full bg-sunOrange animate-pulse"></div>
+            <div class="w-1 h-1 rounded-full bg-white/20"></div>
+            <div class="w-1 h-1 rounded-full bg-white/20"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Fields -->
+    <div class="space-y-4">
+        <!-- Name / Full Width -->
+        <div class="relative group">
+            <input type="text" placeholder="Full Name" readonly
+                   class="w-full h-11 md:h-13 bg-white/5 border border-white/10 rounded-2xl px-11 text-xs text-white/80 focus:border-sunOrange/50 focus:bg-sunOrange/5 transition-all outline-none cursor-default">
+            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-sunOrange transition-colors text-[10px]"></i>
+        </div>
+
+        <!-- Date & Time Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="relative group">
+                <input type="text" placeholder="26/03/2024" readonly
+                       class="w-full h-11 md:h-13 bg-white/5 border border-white/10 rounded-2xl px-11 text-xs text-white/80 transition-all outline-none cursor-default">
+                <i class="fas fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-sunOrange transition-colors text-[10px]"></i>
+            </div>
+            <div class="relative group">
+                <input type="text" placeholder="10:45 AM" readonly
+                       class="w-full h-11 md:h-13 bg-white/5 border border-white/10 rounded-2xl px-11 text-xs text-white/80 transition-all outline-none cursor-default">
+                <i class="fas fa-clock absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-hover:text-sunOrange transition-colors text-[10px]"></i>
+            </div>
+        </div>
+
+        <!-- Location Dropdown Mockup -->
+        <div class="relative group">
+            <div class="w-full h-11 md:h-13 bg-white/5 border border-white/10 rounded-2xl px-11 flex items-center justify-between transition-all group-hover:border-sunOrange/30">
+                <i class="fas fa-location-dot absolute left-4 text-white/20 group-hover:text-sunOrange transition-colors text-[10px]"></i>
+                <span class="text-xs text-white/60">Madurai, Tamil Nadu</span>
+                <i class="fas fa-chevron-down text-[8px] text-white/20 group-hover:text-white transition-colors"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Button with Loading State -->
+    <button class="relative w-full group overflow-hidden">
+        <!-- Glow Effect -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-sunOrange to-rosePink rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+        
+        <div class="relative w-full h-12 md:h-14 bg-gradient-to-r from-sunOrange to-rosePink rounded-full flex items-center justify-center gap-3 shadow-lg transform active:scale-95 transition-transform">
+            <span class="text-[10px] font-black uppercase text-white tracking-[0.2em]">Generate My Chart</span>
+            <i class="fas fa-arrow-right text-[10px] text-white animate-bounce-x"></i>
+        </div>
+    </button>
+</div>
+
+<style>
+    @keyframes bounce-x {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(4px); }
+    }
+    .animate-bounce-x {
+        animation: bounce-x 1s infinite;
+    }
+    /* Adding a custom font scaling for 360px screens */
+    @media (max-width: 360px) {
+        .h-13 { height: 2.75rem; }
+        .px-11 { padding-left: 2.25rem; }
+    }
+</style>
+                        </div>
+
+                        <!-- Step 2 View: Planetary Spin -->
+                        <div x-show="activeStep === 1" x-transition:enter="transition duration-500" class="w-full h-full flex items-center justify-center p-4">
+                            <div class="relative w-32 h-32 md:w-48 md:h-48 border-2 md:border-4 border-dashed border-sunOrange/40 rounded-full animate-[spin_10s_linear_infinite]">
+                                <div class="absolute -top-3 left-1/2 w-6 h-6 bg-rosePink rounded-full blur-sm"></div>
+                                <i class="fas fa-sun absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl md:text-4xl text-warmYellow animate-pulse"></i>
                             </div>
                         </div>
 
-                        <div x-show="activeStep === 1" x-transition.opacity.duration.500ms class="w-full h-full flex items-center justify-center">
-                            <div class="relative w-48 h-48 border-4 border-dashed border-sunOrange/40 rounded-full animate-spin">
-                                <i class="fas fa-sun absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl text-warmYellow"></i>
-                            </div>
+                        <!-- Step 3 View: AI Analysis Lines -->
+                        <div x-show="activeStep === 2" x-transition:enter="transition duration-500" class="w-full h-full p-6 md:p-10 flex flex-col justify-center">
+                          <div class="w-full max-w-sm p-5 md:p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-2xl space-y-4 md:space-y-6">
+    <!-- Form Header -->
+  <div class="w-full max-w-sm p-5 md:p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl space-y-5 md:space-y-7">
+    
+    <!-- AI Status Header -->
+    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-rosePink/20 flex items-center justify-center relative">
+                <i class="fas fa-brain text-rosePink text-xs"></i>
+                <span class="absolute -top-1 -right-1 flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rosePink opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-rosePink"></span>
+                </span>
+            </div>
+            <div>
+                <p class="text-[10px] font-black uppercase text-rosePink tracking-widest">AI Engine Active</p>
+                <p class="text-xs text-white/80 font-medium italic">Scanning 12th House...</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-[10px] font-bold text-white/40 uppercase">Confidence</p>
+            <p class="text-xs font-black text-sunOrange">98.4%</p>
+        </div>
+    </div>
+
+    <!-- Analysis Metrics -->
+    <div class="space-y-4">
+        <!-- Metric 1: Career Path -->
+        <div class="space-y-2">
+            <div class="flex justify-between items-center text-[9px] uppercase font-black tracking-widest">
+                <span class="text-white/60">Career Trajectory</span>
+                <span class="text-sunOrange">Analyzing</span>
+            </div>
+            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-sunOrange to-rosePink w-3/4 animate-pulse"></div>
+            </div>
+        </div>
+
+        <!-- Metric 2: Emotional Intelligence -->
+        <div class="space-y-2">
+            <div class="flex justify-between items-center text-[9px] uppercase font-black tracking-widest">
+                <span class="text-white/60">Emotional Sync</span>
+                <span class="text-rosePink">Calculated</span>
+            </div>
+            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                <div class="h-full bg-rosePink w-[92%] transition-all duration-1000"></div>
+            </div>
+        </div>
+
+        <!-- AI Insight Keywords -->
+        <div class="flex flex-wrap gap-2 pt-2">
+            <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[8px] font-bold text-white/60 uppercase tracking-tighter">Entrepreneurial</span>
+            <span class="px-3 py-1 bg-sunOrange/10 border border-sunOrange/20 rounded-full text-[8px] font-bold text-sunOrange uppercase tracking-tighter">Visionary</span>
+            <span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[8px] font-bold text-white/60 uppercase tracking-tighter">Resilient</span>
+        </div>
+    </div>
+
+    <!-- Insight Button -->
+    <div class="relative group cursor-pointer">
+        <div class="absolute -inset-1 bg-gradient-to-r from-rosePink to-sunOrange rounded-full blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+        <div class="relative h-12 bg-white dark:bg-indigoDark border border-white/10 rounded-full flex items-center justify-center gap-3 shadow-xl">
+            <i class="fas fa-sparkles text-rosePink text-[10px] animate-pulse"></i>
+            <span class="text-[10px] font-black uppercase text-white tracking-[0.2em]">Reveal AI Insights</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes pulse-soft {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    .animate-pulse-soft {
+        animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+</style>
+</div>
+
+<style>
+    @keyframes bounce-x {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(3px); }
+    }
+    .animate-bounce-x {
+        animation: bounce-x 1s infinite;
+    }
+</style>
                         </div>
 
-                        <div x-show="activeStep === 2" x-transition.opacity.duration.500ms class="w-full h-full p-10">
-                            <div class="space-y-4">
-                                <div class="w-2/3 h-4 bg-rosePink/30 rounded-full"></div>
-                                <div class="w-full h-4 bg-white/10 rounded-full"></div>
-                                <div class="w-full h-4 bg-white/10 rounded-full"></div>
-                                <div class="w-4/5 h-4 bg-white/10 rounded-full"></div>
+                        <!-- Step 4 View: Ready State -->
+                        <div x-show="activeStep === 3" x-transition:enter="transition duration-500" class="w-full h-full flex flex-col items-center justify-center gap-4 md:gap-6 text-center">
+                            <div class="flex gap-3 md:gap-4">
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-2xl flex items-center justify-center text-white text-xl md:text-2xl border border-white/10 hover:border-sunOrange transition-colors"><i class="fas fa-file-pdf"></i></div>
+                                <div class="w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-2xl flex items-center justify-center text-white text-xl md:text-2xl border border-white/10 hover:border-rosePink transition-colors"><i class="fas fa-share-alt"></i></div>
                             </div>
-                        </div>
-
-                        <div x-show="activeStep === 3" x-transition.opacity.duration.500ms class="w-full h-full flex flex-col items-center justify-center gap-6">
-                            <div class="flex gap-4">
-                                <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-white text-2xl border border-white/10"><i class="fas fa-file-pdf"></i></div>
-                                <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-white text-2xl border border-white/10"><i class="fas fa-share-alt"></i></div>
-                            </div>
-                            <p class="text-xs font-black text-sunOrange uppercase tracking-widest">Reports Ready for Download</p>
+                            <p class="text-[10px] font-black text-sunOrange uppercase tracking-widest animate-bounce">Reports Ready</p>
                         </div>
 
                     </div>
@@ -625,33 +829,44 @@
     </div>
 </section>
 
+<style>
+    @keyframes shimmer {
+        0% { opacity: 0.3; transform: translateX(-5%); }
+        50% { opacity: 1; transform: translateX(0); }
+        100% { opacity: 0.3; transform: translateX(-5%); }
+    }
+</style>
+
 <script>
     function flowSystem() {
         return {
             activeStep: 0,
+            progress: 0,
+            isPaused: false,
+            interval: null,
             steps: [
-                {
-                    title: "Enter Birth Details",
-                    desc: "Provide your date, time, and city of birth. Our system uses NASA-grade ephemeris data for 100% location precision."
-                },
-                {
-                    title: "System Generates Chart",
-                    desc: "In milliseconds, the platform calculates planetary degrees, house systems (Placidus/Whole Sign), and aspect patterns."
-                },
-                {
-                    title: "AI Gives Deep Insights",
-                    desc: "Our trained LLM analyzes the data to provide psychological profiles, career timing, and emotional intelligence metrics."
-                },
-                {
-                    title: "Download & Share",
-                    desc: "Save your high-resolution chart as a PDF, share insights on social media, or invite your astrologer to view your profile."
-                }
+                { title: "Enter Birth Details", desc: "NASA-grade ephemeris data for 100% location precision." },
+                { title: "System Generates Chart", desc: "Calculates planetary degrees and aspect patterns in ms." },
+                { title: "AI Gives Deep Insights", desc: "LLM analysis for psychological profiles and career timing." },
+                { title: "Download & Share", desc: "High-resolution PDFs ready for your cosmic journey." }
             ],
+            manualSelect(index) {
+                this.activeStep = index;
+                this.isPaused = true; // Stop auto-rotation when user interacts
+                this.progress = 0;
+                clearInterval(this.interval);
+            },
             init() {
-                // Auto-rotate steps every 5 seconds if the user isn't clicking
-                setInterval(() => {
-                    this.activeStep = (this.activeStep + 1) % this.steps.length;
-                }, 5000);
+                // Auto-rotate logic
+                this.interval = setInterval(() => {
+                    if(!this.isPaused) {
+                        this.progress += 2;
+                        if(this.progress >= 100) {
+                            this.activeStep = (this.activeStep + 1) % this.steps.length;
+                            this.progress = 0;
+                        }
+                    }
+                }, 100);
             }
         }
     }
@@ -957,7 +1172,7 @@
             <div class="flex gap-1 text-warmYellow mb-6">
                 <i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i>
             </div>
-            <p class="text-slate-600 dark:text-slate-300 italic mb-8 leading-relaxed">
+            <p class="text-slate-700 dark:text-white font-medium mb-8 leading-relaxed">
                 "The AI insights are shockingly accurate. As a developer, I appreciate the precision of the coordinate calculations. It's the Notion of astrology."
             </p>
             <div class="flex items-center gap-4">
@@ -999,8 +1214,8 @@
             <div class="flex gap-1 text-warmYellow mb-6">
                 <i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i><i class="fas fa-star text-xs"></i>
             </div>
-            <p class="text-slate-600 dark:text-slate-300 italic mb-8 leading-relaxed">
-                "I use this daily to manage my consulting clients. The dashboard is clean, and being able to save multiple family profiles is a game-changer."
+            <p class="text-slate-700 dark:text-white font-medium mb-8 leading-relaxed">
+                "I use this daily to manage my consulting clients. The dashboard is clean, and being able to save multiple family profiles is a game-changer and Astrology."
             </p>
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-sunOrange/20 group-hover:border-sunOrange transition-colors">

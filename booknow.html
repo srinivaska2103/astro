@@ -66,7 +66,7 @@
       x-init="init()"
       :dir="direction">
 
-    <nav class="fixed w-full z-50 top-0 left-0 bg-white dark:bg-indigoDark border-b border-gray-200 dark:border-white/10 transition-colors duration-300" x-data="{ open: false }">
+   <nav class="fixed w-full z-50 top-0 left-0 bg-white dark:bg-indigoDark border-b border-gray-200 dark:border-white/10 transition-colors duration-300" x-data="{ open: false }">
     <div class="max-w-7xl mx-auto px-4 lg:px-6 xl:px-8">
     <div class="flex justify-between h-20 items-center">
         <a href="index.html">
@@ -110,14 +110,19 @@
 </div>
 
         <div class="hidden lg:flex items-center gap-3 xl:gap-5">
-            <button @click="toggleDir()" 
-                    class="text-[10px] font-black px-2 py-1 border rounded-md border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white transition uppercase"
-                    x-text="direction === 'ltr' ? 'RTL' : 'LTR'">
-            </button>
+            <div class="flex items-center gap-3">
+    <!-- RTL/LTR Toggle -->
+    <button @click="toggleDir()" 
+            class="w-10 h-10 flex items-center justify-center text-[10px] font-black border rounded-xl border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white dark:text-white transition uppercase shadow-sm"
+            x-text="direction === 'ltr' ? 'RTL' : 'LTR'">
+    </button>
 
-            <button @click="toggleTheme()" class="text-gray-500 dark:text-warmYellow text-lg transition hover:scale-110">
-                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
-            </button>
+    <!-- Theme Toggle -->
+    <button @click="toggleTheme()" 
+            class="w-10 h-10 flex items-center justify-center text-gray-500 dark:text-warmYellow border rounded-xl border-gray-300 dark:border-white/20 hover:bg-sunOrange hover:text-white transition shadow-sm">
+        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'" class="text-sm"></i>
+    </button>
+</div>
 
 <a href="login.html" 
    class="text-xs xl:text-sm font-bold px-5 xl:px-6 py-2 xl:py-2.5 
@@ -134,9 +139,7 @@
         </div>
 
         <div class="lg:hidden flex items-center gap-4">
-            <button @click="toggleTheme()" class="text-gray-600 dark:text-warmYellow">
-                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
-            </button>
+           
             <button @click="open = !open" class="text-gray-900 dark:text-white focus:outline-none">
                 <i class="fas" :class="open ? 'fa-times text-2xl' : 'fa-bars text-xl'"></i>
             </button>
@@ -180,10 +183,19 @@
         <a href="login.html" class="flex items-center justify-center py-3 border dark:border-white/10 rounded-xl dark:text-white font-bold transition-transform active:scale-95">Login</a>
         <a href="booknow.html" class="flex items-center justify-center py-3 bg-sunOrange text-white rounded-xl font-bold transition-transform active:scale-95">Book Now</a>
     </div>
-
-    <button @click="toggleDir()" class="w-full py-3 bg-gray-100 dark:bg-white/5 text-xs font-black rounded-xl mt-2 dark:text-white uppercase tracking-widest border border-transparent active:border-sunOrange">
-        Switch to <span x-text="direction === 'ltr' ? 'RTL Layout' : 'LTR Layout'"></span>
+   <div class="flex gap-3 mt-3">
+    <!-- Theme Toggle -->
+    <button @click="toggleTheme()" 
+            class="w-14 flex items-center justify-center bg-gray-100 dark:bg-white/5 rounded-xl text-gray-600 dark:text-warmYellow border dark:border-white/10 transition-all">
+        <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
     </button>
+
+    <!-- Layout Toggle -->
+    <button @click="toggleDir()" 
+            class="flex-1 py-4 bg-gray-100 dark:bg-white/5 text-[10px] font-black rounded-xl dark:text-white uppercase tracking-widest border dark:border-white/10 active:border-sunOrange transition-all">
+        <span x-text="direction === 'ltr' ? 'RTL Mode' : 'LTR Mode'"></span>
+    </button>
+</div>
 </div>
     </div>
 </nav>
