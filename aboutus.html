@@ -200,90 +200,165 @@
 </div>
     </div>
 </nav>
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-indigoDark">
+<section class="relative min-h-[90vh] flex items-center pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#0A0D18]">
     
+    <!-- Dynamic Background Layer -->
     <div class="absolute inset-0 z-0">
-        <img src="assets/herohome2" 
-             alt="Starry sky" 
-             class="w-full h-full object-cover opacity-60">
-        <div class="absolute inset-0 bg-gradient-to-r from-indigoDark via-indigoDark/90 to-transparent"></div>
+        <!-- Main Starry Background -->
+        <img src="assets/herohome2" alt="Starry sky" class="w-full h-full object-cover opacity-40">
+        
+        <!-- Animated Nebula Glows -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-sunOrange/10 blur-[120px] rounded-full animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-rosePink/10 blur-[120px] rounded-full animate-pulse" style="animation-delay: 2s"></div>
+        
+        <!-- Masking Gradients -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0A0D18] via-transparent to-[#0A0D18]"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0A0D18] via-transparent to-[#0A0D18] opacity-80"></div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-12 gap-12 items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
             
-            <div class="lg:col-span-7 text-center lg:text-left space-y-8">
+            <!-- Left Content: The Pitch -->
+            <div class="lg:col-span-7 text-center lg:text-left">
                 
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                    <span class="flex h-2 w-2">
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-sunOrange animate-ping"></span>
-                        <span class="absolute inline-flex rounded-full h-2 w-2 bg-sunOrange"></span>
+                <!-- Innovation Badge -->
+                <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-8 group cursor-default">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sunOrange opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-sunOrange"></span>
                     </span>
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-white">Innovation in Tradition</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-white/90 group-hover:text-sunOrange transition-colors">Innovation in Tradition</span>
                 </div>
 
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter text-white">
-                    Blending Ancient <br class="hidden sm:block">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange to-rosePink">
-                        Tamil Astrology
-                    </span> <br class="hidden sm:block">
-                    with Modern Tech
+                <!-- Headline -->
+                <h1 class="text-4xl min-[360px]:text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tighter text-white mb-8">
+                    Ancient Wisdom <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunOrange via-rosePink to-rosePink">
+                        Digital Soul.
+                    </span>
                 </h1>
 
-                <p class="text-slate-300 text-sm md:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                    We simplify complex astrology into clear, accurate, and accessible insights using intelligent automation and data-driven analysis.
+                <!-- Subtext -->
+                <p class="text-slate-400 text-base md:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed mb-10 font-medium">
+                    Experience Tamil Astrology redefined. We’ve mapped centuries of <span class="text-white">Siddhanta logic</span> into a high-precision AI engine for the modern explorer.
                 </p>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                    <a href="contact.html" class="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-sunOrange to-rosePink text-white rounded-full font-black text-xs uppercase tracking-widest shadow-xl shadow-sunOrange/20 hover:shadow-sunOrange/40 hover:-translate-y-1 transition-all active:scale-95 text-center">
-                        Get Started Free
+                <!-- Responsive Actions -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
+                    <a href="contact.html" class="group relative w-full sm:w-auto overflow-hidden px-10 py-5 bg-white text-black rounded-2xl font-black text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 text-center">
+                        <span class="relative z-10">Get Started Free</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-sunOrange to-rosePink opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </a>
-                    <a href="comingsoon.html" class="w-full sm:w-auto px-10 py-5 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all text-center">
+                    
+                    <a href="comingsoon.html" class="w-full sm:w-auto px-10 py-5 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all text-center flex items-center justify-center gap-3">
+                        <i class="fas fa-play text-[10px] text-sunOrange"></i>
                         View Demo
                     </a>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-8 pt-6">
-                    <div class="group">
-                        <p class="text-2xl font-black text-white group-hover:text-sunOrange transition-colors">100%</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Siddhanta Logic</p>
+                <!-- Trust Metrics -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-10 pt-12">
+                    <div class="flex items-center gap-4">
+                        <div class="h-10 w-10 rounded-xl bg-sunOrange/10 border border-sunOrange/20 flex items-center justify-center">
+                            <i class="fas fa-microchip text-sunOrange text-sm"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xl font-black text-white leading-none">100%</p>
+                            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Siddhanta Logic</p>
+                        </div>
                     </div>
-                    <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
-                    <div class="group">
-                        <p class="text-2xl font-black text-white group-hover:text-rosePink transition-colors">NASA</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Precision Data</p>
+                    <div class="flex items-center gap-4">
+                        <div class="h-10 w-10 rounded-xl bg-rosePink/10 border border-rosePink/20 flex items-center justify-center">
+                            <i class="fas fa-satellite text-rosePink text-sm"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xl font-black text-white leading-none">NASA</p>
+                            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Precision Data</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-5 relative hidden lg:block">
-                <div class="relative p-1 rounded-[3rem] bg-gradient-to-br from-sunOrange/50 to-rosePink/50 shadow-2xl">
-                    <div class="bg-indigoDark rounded-[2.8rem] overflow-hidden relative group aspect-square">
-                        
-                        <img src="assets/abt" 
-                             alt="AI Astrology Interface" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000">
+            <!-- Right Content: The Visual Engine -->
+            <div class="lg:col-span-5 relative">
+                <!-- Floating Decorative Orbs -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-sunOrange/20 blur-3xl rounded-full animate-bounce"></div>
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-rosePink/20 blur-3xl rounded-full animate-bounce" style="animation-delay: 1s"></div>
 
-                        <div class="absolute inset-0 flex items-center justify-center z-10 bg-indigoDark/40 backdrop-blur-[2px]">
-                            <i class="fas fa-dharmachakra text-[12rem] text-white/5 absolute group-hover:rotate-90 transition-transform duration-1000"></i>
-                            <div class="text-center p-8 bg-white/5 border border-white/10 rounded-3xl backdrop-blur-xl shadow-2xl">
-                                <i class="fas fa-microchip text-5xl text-sunOrange mb-4 animate-pulse"></i>
-                                <p class="text-xs font-black text-white uppercase tracking-[0.4em]">Proprietary Engine</p>
-                            </div>
-                        </div>
+                <!-- Main Visualization Card -->
+                <div class="relative p-2 rounded-[3.5rem] bg-gradient-to-br from-white/10 to-transparent border border-white/10 backdrop-blur-sm shadow-2xl overflow-hidden group">
+                    
+                    <!-- Internal Grid Pattern -->
+                    <div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+
+                    <div class="bg-[#0A0D18] rounded-[3rem] overflow-hidden relative aspect-square md:aspect-[4/5] lg:aspect-square flex flex-col">
                         
-                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#F97316_1px,transparent_1px)] [background-size:24px_24px]"></div>
+                        <!-- Top Navigation Bar (UI Mockup) -->
+                        <div class="p-6 border-b border-white/5 flex items-center justify-between">
+                            <div class="flex gap-1.5">
+                                <div class="w-2 h-2 rounded-full bg-red-500/50"></div>
+                                <div class="w-2 h-2 rounded-full bg-yellow-500/50"></div>
+                                <div class="w-2 h-2 rounded-full bg-green-500/50"></div>
+                            </div>
+                            <div class="px-3 py-1 bg-white/5 rounded-full text-[8px] font-black uppercase text-slate-500">Live_Analysis_v.4.0</div>
+                        </div>
+
+                        <!-- Central Engine Visualization -->
+                        <div class="flex-1 relative flex items-center justify-center overflow-hidden">
+                            <!-- Scanning Orbit -->
+                            <div class="absolute w-64 h-64 border border-sunOrange/20 rounded-full animate-[spin_10s_linear_infinite]">
+                                <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-sunOrange rounded-full shadow-[0_0_15px_#F97316]"></div>
+                            </div>
+
+                            <!-- The Core Image Box -->
+                            <div class="relative z-10 w-48 h-48 md:w-56 md:h-56 bg-white/5 border border-white/10 rounded-[2.5rem] backdrop-blur-2xl p-4 group/box transition-all hover:scale-105">
+                                <div class="relative h-full w-full rounded-[2rem] overflow-hidden border border-sunOrange/30">
+                                    <img src="assets/Auspicious Time" alt="Core Engine" class="w-full h-full object-cover group-hover/box:scale-110 transition-transform duration-1000">
+                                    
+                                    <!-- Real-time Scanner -->
+                                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sunOrange/40 to-transparent h-1/2 -translate-y-full animate-[scan_2.5s_linear_infinite]"></div>
+                                </div>
+                                
+                                <!-- Floating Data Tags -->
+                                <div class="absolute -right-4 top-10 bg-rosePink px-3 py-1.5 rounded-lg shadow-xl animate-bounce">
+                                    <p class="text-[8px] font-black text-white uppercase italic">AI_Active</p>
+                                </div>
+                            </div>
+
+                            <!-- Geometric Background Icon -->
+                            <i class="fas fa-dharmachakra text-[20rem] text-white/[0.02] absolute rotate-12"></i>
+                        </div>
+
+                        <!-- Bottom Status Bar -->
+                        <div class="p-6 bg-white/[0.02] border-t border-white/5 flex items-center gap-4">
+                            <div class="flex-1 h-1 bg-white/5 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-sunOrange to-rosePink w-2/3 animate-[loading_4s_ease-in-out_infinite]"></div>
+                            </div>
+                            <span class="text-[9px] font-black text-sunOrange uppercase">Processing...</span>
+                        </div>
                     </div>
                 </div>
-                
-               
             </div>
 
         </div>
     </div>
 
-    <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-indigoDark to-transparent"></div>
+    <!-- Section Divider Fade -->
+    <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0A0D18] to-transparent"></div>
 </section>
+
+<style>
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+}
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+</style>
 <section class="py-24 bg-white dark:bg-[#0F1122] transition-colors relative overflow-hidden" x-data="{ activeMission: 1 }">
     
     <div class="absolute top-1/2 left-0 w-72 h-72 bg-sunOrange/5 blur-[100px] rounded-full -z-10"></div>
